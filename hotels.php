@@ -39,3 +39,9 @@ $hotels = [
         'distance_to_center' => 50
     ],
 ];
+
+//in questa parte dovrò usare foreach per stamparlo in pagina
+
+foreach ($hotels as $hotel) {
+    echo "Nome: " . $hotel['name'] . "<br>" ;}
+    ?>
