@@ -10,8 +10,12 @@
 <!-- andrò a creare un form con una richiesta GET che permette di filtrare gli hotel che hanno il parcheggio- !-->
     
 <form method="get">
-    <label for="filter_parking">Mostra solo hotel con i parcheggi</label>
-    <input type="checkbox" name="filter_parking" id="filter_parking">
+    <label for="filter_parking">Desideri un parcheggio?</label>
+    <select name="filter_parking" id="filter_parking">
+    <option value="">Scegli</option>
+    <option value="si">Con parcheggio</option>
+    <option value="no">No parcheggio</option>
+    </select>
     <button type ="submit">Filtra</button> <br>
     <label for="filter_vote">Hotel per voto</label>
     <input type="number" name="filter_vote" id="filter_vote" min="1" max="5">
@@ -82,6 +86,5 @@ foreach ($hotels as $hotel) {
         echo "Parcheggio: " . ($hotel['parking'] ? 'true' : 'false') . "<br>";
         echo "Voto: " . $hotel['vote'] . "<br>";
         echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br><br>";
-    } 
-;
+    };
     ?>
