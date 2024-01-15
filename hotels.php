@@ -71,6 +71,8 @@ $hotels = [
 
 foreach ($hotels as $hotel) {
 
+    if ($filter_parking && !$hotel['parking'])
+
     echo "Nome: " . $hotel['name'] . "<br>";
     echo "Descrizione: " . $hotel['description'] . "<br>";
     echo "Parcheggio: " . $hotel['parking'] . "<br>";
