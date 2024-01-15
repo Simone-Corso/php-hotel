@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>php-hotels</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+
 <!-- andrò a realizzare un array di hotels!-->
 
 <?php
@@ -49,9 +62,5 @@ foreach ($hotels as $hotel) {
     echo "Parcheggio: " . $hotel['parking'] . "<br>";
     echo "Voto: " . $hotel['vote'] . "<br>";
     echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br>";
-
-
-
-
 }
     ?>
