@@ -12,7 +12,10 @@
 <form method="get">
     <label for="filter_parking">Mostra solo hotel con i parcheggi</label>
     <input type="checkbox" name="filter_parking" id="filter_parking">
-    <button type ="submit">Filtra</button>
+    <button type ="submit">Filtra</button> <br>
+    <label for="filter_vote">Hotel per voto</label>
+    <input type="number" name="filter_vote" id="filter_vote" min="1" max="5">
+    <button class="subtim">Filtra</button>
 </form>
 
 </body>
