@@ -68,29 +68,20 @@ $hotels = [
 //Inserisco qua il filter per filtrare per la ricerca dei hotel con solo parcheggi
 
     $filter_parking = isset($_GET['filter_parking']);
-    var_dump($filter_parking);
+    
+    //filtro per il voto
+
+    $filter_vote = isset($_GET['filter_vote']) ? (int)$_GET['filter_vote'] : null;
 
 
 //in questa parte dovrò usare foreach per stamparlo in pagina
 
 foreach ($hotels as $hotel) {
-
-    if ($filter_parking && $hotel['parking'] === true) {
         echo "Nome: " . $hotel['name'] . "<br>";
         echo "Descrizione: " . $hotel['description'] . "<br>";
-        echo "Parcheggio: " . ($hotel['parking'] ? 'true' : 'false'). "<br>";
+        echo "Parcheggio: " . ($hotel['parking'] ? 'true' : 'false') . "<br>";
         echo "Voto: " . $hotel['vote'] . "<br>";
-        echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br>";
-       
-    } else {
-        //metterò qua quando non sarà attivo la parte del filtro
-
-        echo "Nome: " . $hotel['name'] . "<br>";
-        echo "Descrizione: " . $hotel['description'] . "<br>";
-        echo "Parcheggio: " . $hotel['parking'] . "<br>";
-        echo "Voto: " . $hotel['vote'] . "<br>";
-        echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br>";
-    }
-   
-};
+        echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br><br>";
+    } 
+;
     ?>
