@@ -9,7 +9,7 @@
 
 <!-- andrò a creare un form con una richiesta GET che permette di filtrare gli hotel che hanno il parcheggio- !-->
     
-<form action="" method="get">
+<form method="get">
     <label for="filter_parking">Mostra solo hotel con i parcheggi</label>
     <input type="submit" name="filter_parking" id="filter_parking">
     <button type ="submit">Filtra</button>
