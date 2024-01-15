@@ -11,7 +11,7 @@
     
 <form method="get">
     <label for="filter_parking">Mostra solo hotel con i parcheggi</label>
-    <input type="submit" name="filter_parking" id="filter_parking">
+    <input type="checkbox" name="filter_parking" id="filter_parking">
     <button type ="submit">Filtra</button>
 </form>
 
@@ -60,6 +60,12 @@ $hotels = [
         'distance_to_center' => 50
     ],
 ];
+
+
+//Inserisco qua il filter per filtrare per la ricerca dei hotel con solo parcheggi
+
+    $filter_parking = isset($_GET['filter_parking']) && $_GET ['filter_parking'] ==='true';
+
 
 //in questa parte dovrò usare foreach per stamparlo in pagina
 
