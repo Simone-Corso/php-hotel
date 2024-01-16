@@ -69,11 +69,12 @@
                     </select>
                 </div>
                 <div class="mb-3 form-check my-auto mx-auto text-center">
-                    <select class="form-select mb-2 w-50 mx-auto my-auto" aria-label="Default select example" id="parking" name="parking">
-                        <option selected value="2">Selezionare il parcheggio</option>
-                        <option value="1">Si</option>
-                        <option value="0">No</option>
-                    </select>
+                <select class="form-select mb-2 w-50 mx-auto my-auto" aria-label="Default select example" id="parking" name="parking">
+                    <option value="">Selezionare il parcheggio</option>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
+
                     <div class="container-btn d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Invia</button>
                     </div>
@@ -86,15 +87,6 @@
         <div class="row">
             <div class="col-md-12 my-auto mx-auto text-center">
                 <h1>Risultati della tua ricerca : </h1>
-
-                <!--qua andrò a mettere foreach per stampare quando l'utente andrà a fare la ricerca desiderata!-->
-                <?php if (isset($finalHotels) && is_array($finalHotels)) { ?>
-                <?php foreach ($finalHotels as $hotel) { ?>
-                    <p><?php echo $hotel['name']; ?> - <?php echo $hotel['description']; ?></p>
-                <?php } ?>
-            <?php } else { ?>
-                <p>Nessun hotel corrisponde ai criteri di ricerca.</p>
-            <?php } ?>
         </div>
     </div>
 </div>
@@ -154,24 +146,17 @@ $hotels = [
 
 $parkingFilter = (isset($_GET['parking']) && is_numeric($_GET['parking']) && $_GET['parking'] == 1) ? true : false;
 
-
-
 //in questa parte dovrò usare foreach per stamparlo in pagina
+foreach ($hotels as $hotel) {
 
-$finalHotels = $hotels;
-
-if (isset($_GET['parking']) && $_GET['parking'] == 1) {
-    $finalHotels = array_filter($finalHotels, function ($hotel) {
-        return $hotel['parking'] === true;
-    });
+    echo "Nome: " . $hotel['name'] . "<br>";
+    echo "Descrizione: " . $hotel['description'] . "<br>";
+    echo "Parcheggio: " . $hotel['parking'] . "<br>";
+    echo "Voto: " . $hotel['vote'] . "<br>";
+    echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br>";
 }
 
-if (isset($_GET['vote']) && is_numeric($_GET['vote']) && $_GET['vote'] != 0) {
-    $finalHotels = array_filter($finalHotels, function ($hotel) {
-        return $hotel['vote'] >= $_GET['vote'];
-    });
 
-};
 
 ?>
 
