@@ -2,37 +2,107 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>php-hotels</title>
 </head>
 <body>
 
-<!-- andrò a creare un form con una richiesta GET che permette di filtrare gli hotel che hanno il parcheggio- !-->
-    
-<form method="get">
-    <label for="filter_parking">Desideri un parcheggio?</label>
-    <select name="filter_parking" id="filter_parking">
-    <option value="">Scegli</option>
-    <option value="si">Con parcheggio</option>
-    <option value="no">No parcheggio</option>
-    </select>
-    <div>
-        <label for="vote">Seleziona un voto da 1 a 5</label>
-         <select name="vote" class="form-select" id="vote">
-            <option value="">Scegli</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-     </div>
+<table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Descrizione
+                </th>
+                <th>
+                    Parcheggio
+                </th>
+                <th>
+                    Voto
+                </th>
+                <th>
+                    Distanza Dal Centro
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if (isset($finalHotels) && is_array($finalHotels)) { ?>
+    <?php foreach ($finalHotels as $hotel) { ?>
+        <tr>
+            <td>
+                <?php echo $hotel['name']; ?>
+            </td>
+            <td>
+                <?php echo $hotel['description']; ?>
+            </td>
+            <td>
+                <?php echo $hotel['parking']; ?>
+            </td>
+            <td>
+                <?php echo $hotel['vote']; ?>
+            </td>
+            <td>
+                <?php echo $hotel['distance_to_center']; ?>
+            </td>
+        </tr>
+        <?php } ?>
+    <?php } ?>
+</tbody>
+    </table>
+
+<div class="container">
+        <div class="row">
+            <form action="./hotels.php" method="GET">
+                <div class="mb-3 form-check">
+                    <select class="form-select mb-2" aria-label="Default select example" id="vote" name="vote">
+                        <option selected value="0">Selezionare un minimo di stelle</option>
+                        <option value="1">Una Stella</option>
+                        <option value="2">Due Stelle</option>
+                        <option value="3">Tre Stelle</option>
+                        <option value="4">Quattro Stelle</option>
+                        <option value="5">Cinque Stelle</option>
+                    </select>
+                </div>
+                <div class="mb-3 form-check">
+                    <select class="form-select mb-2" aria-label="Default select example" id="parking" name="parking">
+                        <option selected value="2">Selezionare il parcheggio</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary ms-auto">Invia</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Risultati della tua ricerca : </h1>
+
+                <!--qua andrò a mettere foreach per stampare quando l'utente andrà a fare la ricerca desiderata!-->
+                <?php if (isset($finalHotels) && is_array($finalHotels)) { ?>
+                <?php foreach ($finalHotels as $hotel) { ?>
+                    <p><?php echo $hotel['name']; ?> - <?php echo $hotel['description']; ?></p>
+                <?php } ?>
+            <?php } else { ?>
+                <p>Nessun hotel corrisponde ai criteri di ricerca.</p>
+            <?php } ?>
+        </div>
+    </div>
 </div>
-     <button type="submit" class="btn btn-primary">Invia</button>
- </form>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
+
 
 
 <!-- andrò a realizzare un array di hotels!-->
@@ -78,22 +148,31 @@ $hotels = [
 ];
 
 
-//Inserisco qua il filter per filtrare per la ricerca dei hotel con solo parcheggi
+//in questa parte dovrò usare filtered per chiamare il get
 
-    $filter_parking = isset($_GET['filter_parking']);
-    
-    //filtro per il voto
-
-    $filter_vote = isset($_GET['filter_vote']) ? (int)$_GET['filter_vote'] : null;
+$parkingFilter = (isset($_GET['parking']) && is_numeric($_GET['parking']) && $_GET['parking'] == 1) ? true : false;
 
 
 //in questa parte dovrò usare foreach per stamparlo in pagina
 
-foreach ($hotels as $hotel) {
-        echo "Nome: " . $hotel['name'] . "<br>";
-        echo "Descrizione: " . $hotel['description'] . "<br>";
-        echo "Parcheggio: " . ($hotel['parking'] ? 'true' : 'false') . "<br>";
-        echo "Voto: " . $hotel['vote'] . "<br>";
-        echo "Distanza dal centro: " . $hotel['distance_to_center'] . "<br><br>";
-    };
-    ?>
+$finalHotels = $hotels;
+
+if (isset($_GET['parking']) && $_GET['parking'] == 1) {
+    $finalHotels = array_filter($finalHotels, function ($hotel) {
+        return $hotel['parking'] === true;
+    });
+}
+
+if (isset($_GET['vote']) && is_numeric($_GET['vote']) && $_GET['vote'] != 0) {
+    $finalHotels = array_filter($finalHotels, function ($hotel) {
+        return $hotel['vote'] >= $_GET['vote'];
+    });
+};
+
+
+
+    
+
+?>
+
+
